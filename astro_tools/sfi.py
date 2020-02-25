@@ -93,8 +93,6 @@ class SFI(object):
     def show(self):
         """
         Shows the plot and starts interactive part
-
-        :return: (float, float): the radial velocity and error.
         """
 
         self.spectrum = pl.plot(self.wave, self.flux, '-b')[0]
@@ -169,7 +167,7 @@ class SFI(object):
 
     def onScroll(self, event=None):
         """
-        Event handler for mouse clicks
+        Event handler for mouse scroll wheel
         """
         if event.inaxes:
             x, y = event.xdata, event.ydata
