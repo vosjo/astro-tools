@@ -10,7 +10,8 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     license='MIT',
     entry_points = {
-        'console_scripts': ['astro-sfi=astro_tools.sfi:main'],
+        'console_scripts': ['astro-sfi=astro_tools.sfi:main',
+                            'astro-norm=astro_tools.normalize:main'],
     },
     python_requires='>=2.7',
 )
