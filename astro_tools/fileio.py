@@ -62,7 +62,7 @@ def read_spectrum(filename):
         print 'uves hdf5'
     else:
         data = ascii.read(filename)
-        wave, flux = data['col1'], data['col2']
+        wave, flux = data.columns[0], data.columns[1]
         print 'ascii spectrum'
 
     return wave, flux

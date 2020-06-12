@@ -7,12 +7,14 @@ from fileio import read_spectrum
 
 class Normalizer(object):
 
-    def __init__(self, wave, flux, fig=None, title=''):
+    def __init__(self, wave, flux, fig=None, title='', filename='spectrum.spec'):
 
         if fig is not None:
             self.fig = fig
         else:
             self.fig = pl.get_current_fig_manager().canvas.figure
+            
+        self.filename = filename
 
         self.ax1 = pl.subplot(211)
         self.ax2 = pl.subplot(212)
@@ -151,6 +153,7 @@ class Normalizer(object):
         self.ylim1 = axis.get_ylim()
 
     def ontype(self, event):
+        
         # when the user hits 'n' and a spline-continuum is fitted, normalise the
         # spectrum
         # if event.key == 'n':
@@ -173,9 +176,9 @@ class Normalizer(object):
         # file.
         elif event.key == 'w':
             for artist in pl.gca().get_children():
-                if hasattr(artist, 'get_label') and artist.get_label() == 'normalised':
+                if hasattr(artist, 'get_label') and artist.get_label() == 'normspectrum':
                     data = np.array(artist.get_data())
-                    np.savetxt(os.path.splitext(filename)[0] + '.nspec', data.T)
+                    np.savetxt(os.path.splitext(self.filename)[0] + '.nspec', data.T)
                     print('Saved to file')
                     break
         pl.draw()
@@ -197,7 +200,7 @@ def main():
     fig = pl.figure(1, figsize=(18, 8))
     pl.subplots_adjust(left=0.05, right=0.99)
 
-    norm = Normalizer(wave, flux, fig=fig, title=args.spectrum)
+    norm = Normalizer(wave, flux, fig=fig, title=args.spectrum, filename=args.spectrum)
     norm.show()
 
 
